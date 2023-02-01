@@ -1,5 +1,4 @@
-import React, {useState, useEffect, createContext} from "react";
-import  Data  from "../Data.js";
+import React, {useState, createContext} from "react";
 
 export const Datacontext = createContext();
 
@@ -9,59 +8,42 @@ export const DataProvider = (props) =>{
     const [carrito, setCarrito] = useState([])
     const [total, setTotal] = useState(0)
 
-    useEffect(() =>{
-        const producto = Data.items
-        if (producto) {
-            setProductos(producto)
-        } else {
-            setProductos([])
-        }
-        
-    },[]);
+    const addCart = (product) => {
+		const idx = carrito.findIndex(prod => prod.id === product.id)
 
-    const addCarrito = (id) => {
-        const check = carrito.every(item => {
-            return item.id !== id;
-        })
-        if(check){
-            const data = productos.filter(producto => {
-                return producto.id === id
-            })
-            setCarrito([...carrito, ...data])
-        }else{
-            alert ("El producto se ha añadido al carrito")
-        }
+		if(idx !== -1){
+			carrito[idx].cantidad += product.cantidad
+			setCarrito([ ...carrito])
+		}else{
+			setCarrito([...carrito, product]);
+		}
+		
+	}
+
+    const totalPrice = () => carrito.reduce((contador, producto) => contador += (producto.price * producto.cantidad) , 0)
+
+	const totalCant = () => carrito.reduce((contador, producto) => contador += producto.cantidad , 0)
+
+	//Vaciar carro
+    const emptyCart = () => {
+        setCarrito([])
     }
 
-    useEffect(() =>{
-        const dataCarrito = JSON.parse(localStorage.getItem('dataCarrito')) 
-        if(dataCarrito){
-            setCarrito(dataCarrito)
-        }
-    }, [])
-
-    useEffect(() =>{
-        localStorage.setItem('dataCarrito', JSON.stringify(carrito))
-    },[carrito])
-
-
-    useEffect(() =>{
-        const getTotal = () =>{
-            const res = carrito.reduce((prev, item) =>{
-                return prev + (item.price * item.cantidad);
-            }, 0)
-            setTotal(res)
-        }
-        getTotal()
-    },[carrito])
+    //Elimina por item
+	const deleteItem = (id) => setCarrito(carrito.filter(prod => prod.id !== id))
 
     const value = {
         productos : [productos],
-        menu: [menu, setMenu],
-        addCarrito: addCarrito,
-        carrito: [carrito, setCarrito],
-        total: [total, setTotal]
-
+        total: [total, setTotal],
+        menu,
+        setMenu,
+        carrito,
+        setCarrito,
+        addCart,
+        totalPrice,
+        totalCant,
+        emptyCart,
+        deleteItem
     }
 
     return (

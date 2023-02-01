@@ -3,19 +3,16 @@ import { Link } from "react-router-dom";
 import { Datacontext } from "../../context/Dataprovider";
 import { Login } from "../../screens/Login";
 //import { LoginAuth } from "../Auth0/LoginAuth0";
-import firebaseApp from "../../Firebase/Credenciales";
 import { getAuth, signOut } from "firebase/auth";
 
 
 
 export const Header = () => {
-    const value = useContext(Datacontext);
-    const [menu, setMenu] = value.menu;
-    const [carrito] = value.carrito;
     const [openDropdown, setOpenDropdown]= useState(false)
     const [openProfile, setOpenProfile]= useState(false)
     const [anyUser, setAnyUser] = useState({})
-    const auth = getAuth(firebaseApp);
+
+    const {menu,setMenu,carrito } = useContext(Datacontext);
 
   useEffect(() => {
     setTimeout(()=> {
@@ -29,11 +26,7 @@ export const Header = () => {
   };  
 
   const logout =()=> {
-    signOut(auth).then(resp => {
-      console.log(resp)
-      localStorage.clear()
-      window.location.reload()
-    })
+    console.log('auth')
   }
 
   return (
@@ -82,7 +75,7 @@ export const Header = () => {
                   <Link to="Velas">Velas</Link>
                 </li>
                 <li>
-                  <Link to="Piedras">Piedras</Link>
+                  <Link to="piedras">Piedras</Link>
                 </li>
               </ul>
             </div>

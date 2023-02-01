@@ -3,10 +3,8 @@ import { Datacontext } from "../../context/Dataprovider";
 import { Link } from "react-router-dom";
 
 export const Item = ({ id, title, price, image, category, autor }) => {
-  const value = useContext(Datacontext);
-  const [carrito, setCarrito] = value.carrito;
-  const [total] = value.total;
   const [counterProduct, setCounterProduct] = useState(0);
+  const {carrito,setCarrito, addCart} = useContext(Datacontext);
 
   const handleAddCantidad = () => {
     setCounterProduct(counterProduct + 1);
@@ -20,7 +18,7 @@ export const Item = ({ id, title, price, image, category, autor }) => {
 
   const addProducto = () => {
     const newProductToCart = {
-      id: Math.random().toString(10),
+      id,
       title,
       price,
       image,
@@ -28,10 +26,8 @@ export const Item = ({ id, title, price, image, category, autor }) => {
       autor,
       cantidad: counterProduct < 1 ? 1 : counterProduct
     };
-    console.log(newProductToCart);
 
-    setCarrito([...carrito, newProductToCart]);
-    setCounterProduct(0);
+    addCart(newProductToCart)
   };
 
   return (

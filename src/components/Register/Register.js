@@ -31,18 +31,6 @@ function Register() {
     });
   }
 
-  onAuthStateChanged(auth, (usuarioFirebase) => {
-    if (usuarioFirebase) {
-      //funcion final
-
-      if (!user) {
-        setUserWithFirebaseAndRol(usuarioFirebase);
-      }
-    } else {
-      setUser(null);
-    }
-  });
-
   return <>{user ? <Home user={user} /> : <Login />}</>;
 }
 

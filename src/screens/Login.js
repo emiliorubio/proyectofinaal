@@ -1,31 +1,15 @@
 import React, { useState } from "react";
 
-import firebaseApp from "../Firebase/Credenciales";
 import {
   getAuth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import { getFirestore, doc, setDoc } from "firebase/firestore";
-const auth = getAuth(firebaseApp);
 
 export const Login = ({openModal}) => {
-  const firestore = getFirestore(firebaseApp);
   const [isRegistrando, setIsRegistrando] = useState(false);
 
-  async function registrarUsuario(email, password, rol) {
-    const infoUsuario = await createUserWithEmailAndPassword(
-      auth,
-      email,
-      password
-    ).then((usuarioFirebase) => {
-      return usuarioFirebase;
-    });
-
-    console.log(infoUsuario.user.uid);
-    const docuRef = doc(firestore, `usuarios/${infoUsuario.user.uid}`);
-    setDoc(docuRef, { correo: email, rol: rol });
-  }
 
   function submitHandler(event) {
     event.preventDefault();
@@ -36,10 +20,9 @@ export const Login = ({openModal}) => {
 
      if (isRegistrando) {
        // registrar
-       registrarUsuario(email, password, rol);
      } else {
        // login
-       signInWithEmailAndPassword(auth, email, password).then(resp=> {
+       signInWithEmailAndPassword( email, password).then(resp=> {
         if(resp.user) {
            openModal(false)
            setTimeout(()=>{

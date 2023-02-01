@@ -13,6 +13,7 @@ import { Inicio } from "./Inicio/index";
 import { ItemListContainer } from "./ItemListContainer/ItemListContainer";
 import { ItemDetail } from "./ItemDetail/ItemDetail";
 import Checkout from "./Carrito/Ckeckout";
+import CartContainer from "./CartContainer";
 
 export const AppRouter = () => {
   return (
@@ -26,10 +27,12 @@ export const AppRouter = () => {
         <Route path="/Divorcio" element={<Divorcio />} />
         <Route path="/antiEstres" element={<AntiEstres />} />
         <Route path="/Velas" element={<Velas />} />
-        <Route path="/Piedras" element={<Piedras />} />
+        <Route path="/piedras" element={<Piedras />} />
         <Route path="/Podcast" element={<Podcast />} />
         <Route path="/Producto/:id" element={<ItemDetail />} />
         <Route path="/Checkout" element={<Checkout />} />
+        <Route path="/cart" element={<CartContainer />} />
+
       </Routes>
       <Footer />
     </>
