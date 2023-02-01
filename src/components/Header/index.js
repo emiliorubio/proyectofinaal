@@ -86,7 +86,7 @@ export const Header = () => {
         </li>
       </ul>
 
-      <div className="profile">
+      {/*<div className="profile">
         <span
           
           style={{
@@ -105,8 +105,8 @@ export const Header = () => {
 
         {/*<span>
           <LoginAuth />
-        </span>*/}
       </div>
+        </span>*/}
 
       <div className="cart" onClick={toogleMenu}>
         <box-icon

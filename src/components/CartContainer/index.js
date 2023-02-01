@@ -61,9 +61,10 @@ const CartContainer =()=> {
 					{carrito.map(prod => {
                         console.log(prod)
                         return (
-                        <div key={prod.id}>
-                                <div className="w-50">
-							<img src={prod.image} alt="Foto del Producto." className="w-25" />
+						<div className="cart-products">
+                        <div  key={prod.id} >
+                                <div>
+							<img src={prod.image} alt="Foto del Producto." className="img-cart" />
 						</div>
 
 						<h2>Categoría: {prod.category}</h2>
@@ -71,32 +72,35 @@ const CartContainer =()=> {
 						<h3>Precio: ${prod.price}</h3>
 						<h2>cantidad: {prod.cantidad}</h2>
 						<br />
-						<button onClick={() => deleteItem(prod.id)} className="btn btn-danger"> X </button>
+						<button onClick={() => deleteItem(prod.id)} className="btn-deleted"> Eliminar producto </button>
                         </div>
-                        )
+                        
+						</div>
+						)
                     }
 					)}
 
-					<h4>El precio total es: {totalPrice()}</h4>
+					<h4 className="form">El precio total es: {totalPrice()}</h4>
 
-					<form onSubmit={addOrder} >
-						<div className="form-field  mt-3">
+					<form className="form" onSubmit={addOrder} >
+						<div className="form">
 
 							<input required type="text" onChange={handleOnChange} name='name' value={dataForm.name}
 								placeholder="Ingrese el nombre" /></div>
-						<div className="form-field  mt-3">
+						<div className="form">
 							<input required type="tel" onChange={handleOnChange} name='phone'
 								value={dataForm.phone} placeholder="Ingrese el telefono" /></div>
-						<div className="form-field  mt-3">
+						<div className="form">
 							<input required type="text" onChange={handleOnChange} name='email'
 								value={dataForm.email} placeholder="Ingrese el email" pattern="[^@\s]+@[^@\s]+\.[^@\s]+" /></div>
-						<button disabled={noValido} className="btnFinish mt-3">Terminar compra</button>
+						<button disabled={noValido} className="btn-form">Terminar compra</button>
 					</form>
-					<button className="btnEmpty mt-3" onClick={emptyCart}> Vaciar Carrito</button></>}
+					<button className="form"  onClick={emptyCart}> Vaciar Carrito</button></>}
 				</>
 				:
 				<>
 					{showOrden.displayOrder && <>
+						<div className="end-order">
 						<h2 className="Orden">Nombre: {dataForm.name}</h2>
 						<h2 className="Orden">Telefono:{dataForm.phone}</h2>
 						<h2 className="Orden">Correo: {dataForm.email}</h2>
@@ -105,13 +109,15 @@ const CartContainer =()=> {
 						<br />
 						<h3>Para hacer seguimiento de tu compra, utiliza el siguiente codigo:</h3>
 						<h2 className="Id">ID de compra: {orderId}</h2>
+						</div>
 					</>}
 
 					{errorOrden && <h1>Hubo un error en su pedido.</h1>
 					}
 
-					<h2 className="mt-5">Compren algo a su Michi.</h2>
-					<Link to='/' ><img src="https://media.tenor.com/uneqmK1ERo8AAAAj/tkthao219-bubududu.gif" /></Link>
+					<h2 className="end-cart">¡¡¡Gracias por visitarnos!!!</h2>
+					<h3 className="end-cartt">Siempre recuerda tu salud mental es lo primero.</h3>
+					<Link to='/' ><img className="end-cart-img" src="https://media.tenor.com/X2_CeqViLyYAAAAj/selflove-amor.gif" /></Link>
 				</>
 			}
 		</div>
